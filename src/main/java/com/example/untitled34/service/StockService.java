@@ -44,14 +44,8 @@ public class StockService {
         List<Stock> stocks = queryRepository.search(condition);
 
         return  stocks.stream()
-                .map((stock) -> new StockResponseDto(
-                        stock.getId(),
-                        stock.getQuantity(),
-                        stock.getProduct().getId(),
-                        stock.getProduct().getName(),
-                        stock.getWarehouse().getId(),
-                        stock.getWarehouse().getName()
-                )).toList();
+                // .map((stock) -> StockResponseDto.fromEntity(stock)).toList();    // Dto 단계에서 Dto 에 Model 값을 넣음
+                .map(StockResponseDto::fromEntity).toList();                        // 위에거랑 같은 동작을함
     }
 
     public Stock getById(Long id) {
