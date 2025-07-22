@@ -1,6 +1,7 @@
 package com.example.untitled34.service;
 
 import com.example.untitled34.dto.StockDto;
+import com.example.untitled34.dto.StockResponseDto;
 import com.example.untitled34.dto.StockUpdateDto;
 import com.example.untitled34.model.Product;
 import com.example.untitled34.model.Stock;
@@ -39,8 +40,18 @@ public class StockService {
         return stockRepository.save(stock);
     }
 
-    public List<Stock> search(StockSearchCondition condition) {
-        return queryRepository.search(condition);
+    public List<StockResponseDto> search(StockSearchCondition condition) {
+        List<Stock> stocks = queryRepository.search(condition);
+
+        return  stocks.stream()
+                .map((stock) -> new StockResponseDto(
+                        stock.getId(),
+                        stock.getQuantity(),
+                        stock.getProduct().getId(),
+                        stock.getProduct().getName(),
+                        stock.getWarehouse().getId(),
+                        stock.getWarehouse().getName()
+                )).toList();
     }
 
     public Stock getById(Long id) {

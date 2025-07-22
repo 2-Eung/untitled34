@@ -1,6 +1,7 @@
 package com.example.untitled34.controller;
 
 import com.example.untitled34.dto.StockDto;
+import com.example.untitled34.dto.StockResponseDto;
 import com.example.untitled34.dto.StockUpdateDto;
 import com.example.untitled34.model.Stock;
 import com.example.untitled34.query.StockSearchCondition;
@@ -23,7 +24,7 @@ public class StockController {
     }
 
     @GetMapping
-    public List<Stock> search(StockSearchCondition condition) {
+    public List<StockResponseDto> search(StockSearchCondition condition) {
         return stockService.search(condition);
     }
 
